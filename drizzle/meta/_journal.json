@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1788806896263,
+      "tag": "0000_freezing_sunset_bain",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788842432420,
+      "tag": "0001_battle_scans",
+      "breakpoints": true
+    }
+  ]
+}

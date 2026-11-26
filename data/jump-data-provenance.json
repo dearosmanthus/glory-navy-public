@@ -1,0 +1,11 @@
+{
+  "source": "CCP EVE Online Static Data Export",
+  "sde": 3500372,
+  "released": "2026-09-09T11:07:14Z",
+  "sources": {
+    "sde": "https://developers.eveonline.com/static-data"
+  },
+  "systemCount": 5404,
+  "shipCount": 56,
+  "outputSha256": "15e0d3b6d5331a273409dcbd804b396a0209f146b5c139e2eb31399fb8d66afd"
+}

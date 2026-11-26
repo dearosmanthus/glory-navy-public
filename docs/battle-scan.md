@@ -1,0 +1,18 @@
+# Battle Scan
+
+Entry: `/#dscan`. Supports EVE directional scan clipboard rows and one-name-per-line local/fleet channel member lists. It does not read the game client or authenticate a character.
+
+The input collapses after analysis and can be reopened without losing the result. Ctrl/Cmd+Enter analyzes the current input. D-Scan opens a three-column overview of ships, classes/other objects and scan information; hull/class rows support hover and click-to-pin related highlighting. Member summaries show alliances and corporations side by side with related highlighting. Detailed tables, manual additions and raw/unresolved input have separate tabs. New results move keyboard focus to Summary; streamed member updates preserve the selected tab. Database loading errors and retry remain visible even when input is collapsed. Narrow screens stack the overview and wrap the tabs.
+
+- D-Scan accepts modern `typeID<TAB>name<TAB>type<TAB>distance`, legacy name/type/distance, bilingual/reordered headers, and an exact hull name per line. IDs override labels. Custom object names never become pilot identities. Duplicate observed objects are counted; ambiguous Chinese type names remain unresolved without IDs.
+- Counts distinguish observed ships, manual additions, structures/deployables and unresolved rows. Distance ranges use observed rows only. Base mass excludes fittings/propulsion. Location clues use only fixed celestial/station names; gate destinations and player object names cannot establish a system.
+- Member lookups deduplicate names, use public ESI name/affiliation endpoints in batches of 250 with two concurrent batches, and show unavailable/not-found independently. Per-batch edge cache is 10 minutes; no standings or current ship inference is made.
+- Limits: 350,000 input characters, 5,000 nonempty rows, 3,000 unique members, 100 manual hull types. Oversized input is rejected, never truncated.
+- Sharing is explicit. `/#dscan/s/{24-hex-code}` loads a 30-day snapshot. Anyone holding the link can read it. The UTF-8 JSON share limit is 1 MiB (also checked before upload); large member snapshots may require a smaller scan. Raw text is not saved to browser local storage. Public ESI lookups use cached names; creating a share stores the raw scan and results in D1.
+- D1 table `battle_scans` is introduced by generated migration `0001_battle_scans.sql`. Apply migrations before deploying. Share creation is limited to 30/hour/IP and member lookup batches to 60/hour/IP; separate namespaced counters use the existing expiry-indexed rate-limit table. IDs use cryptographically random 96-bit tokens. Queries are parameterized and expired records are excluded at read time.
+
+Data comes from the CCP JSONL SDE, build 3494416. `scripts/generate-scan-data.mjs` reads development-only `.sde-tmp` files and emits lazy-loaded `public/scan-data.json`. Included categories cover ships, celestial objects, stations, structures, drones, deployables and probes, including unpublished records present on D-Scan. Input/output SHA-256 values and source details are in `data/scan-data-provenance.json`. Raw SDE archives are not bundled.
+
+Reference behavior was inspected at https://dscan.info/howto and https://dscan.info/about. Implementation and UI are original; no reference-site source/assets are copied. Clipboard format cross-check: https://github.com/zifox666/eve-dscan-tool and https://github.com/zmiguel/d-scan.space/tree/main/tools/scan_examples.
+
+Checks: `npm run test:scan`, `npm run test:industry`, `npx tsc --noEmit`, targeted Oxlint, production build, and local Worker/D1 HTTP round trips for share snapshots, malformed input, missing/expired links and member lookup.

@@ -1,0 +1,15 @@
+{
+  "source": "CCP EVE Online Static Data Export",
+  "url": "https://developers.eveonline.com/static-data",
+  "sde": 3494416,
+  "released": "2026-09-04T11:09:51Z",
+  "inputs": {
+    "types.jsonl": "c601af805c940688c140d89d83de110cbd9798bf483b12bf49f1fd25f5a225cd",
+    "groups.jsonl": "f5b338737417e24d96a7c43070d2c87286560a5eb936464f663f1dec31c36821",
+    "categories.jsonl": "1280acd333a7e06bdadd3de12359c65efe4e54878a8a719d389585dd60751898",
+    "mapSolarSystems.jsonl": "f9975854ebf72af597e6f554389c293d9c51248aea59bb9940585583e863e0e1",
+    "mapRegions.jsonl": "2df459ce14921cf3e4ead93d97e0badcabe64cdd09bc0358265648e7ecdb3069",
+    "_sde.jsonl": "6979ad97d09a5953171dfbc5b7f403bfab9366a30abe7d8902fa48e5fe2c23ea"
+  },
+  "outputSha256": "5c33b2dac20e10428f19a29f50cb2fa0c2133eba674ede0e61e7c1ddb676b258"
+}
